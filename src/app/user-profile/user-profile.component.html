@@ -1,0 +1,25 @@
+<div class="navi">
+    <div class="bar-text">
+        <div class="list-state">
+            <div class="title">{{pageTitle}}</div>
+            <div class="sort">
+                <select [(ngModel)]="activeSortKey">
+                    <option *ngFor="let opt of sortOptions" [value]="opt" [selected]="opt">{{opt}} ▼</option>
+                </select>
+            </div>
+        </div>
+        <div class="plus">+</div>
+    </div>
+    <div class="menuToggle">
+        <input type="checkbox" />
+        <span></span><span></span><span></span>
+        <ul>
+            <li><a href="#">Your List</a></li>
+            <li><a href="#">Friend's Lists</a></li>
+        </ul>
+    </div>
+</div>
+
+<home [activeSortKey]="this.activeSortKey"></home>
+
+<!-- <img class="thumb" src="/assets/mind.png" no-repeat center style="width: 100%;"> -->

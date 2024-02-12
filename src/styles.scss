@@ -1,0 +1,513 @@
+@mixin pos($pos, $left: null, $top: null, $right: null, $bottom: null) {
+	position:$pos;
+	// left:$left;
+	@if $top { top: $top; }
+	@if $left { left: $left; }
+	@if $right { right: $right; }
+	@if $bottom { bottom: $bottom; }
+}
+
+@mixin size($width, $height) {
+	width: $width;
+	height: $height;
+}
+
+//------------- CONSTANTS --------------//
+
+$big-stone:#152536;
+$white:#fff;
+$smalt-blue:#4e958b;
+$maroon-flush:#C32361;
+$black:#000;
+$lite-grey:rgba($black, .2);
+$lite-big-stone: rgba($big-stone, .7);
+
+$border-radius: 8px;
+$box-shadow: 0 1px 4px rgba($black, .3);
+$transition: cubic-bezier(.17,.67,.5,1.03);
+$timing-1: .4s .15s;
+$timing-2: .5s .25s;
+
+$small-screen: 572px;
+
+$card-width-small: 92%;
+$card-width-medium: 350px;
+
+$card-height: 320px;
+$thumb-height: 260px;
+
+//------------- BOILER PLATE --------------//
+
+* { font-family: 'Montserrat', sans-serif; }
+body { margin: 0; background: #e0e0e0; } //for some reason, the user agent stylesheet adds 8px
+.home-container { margin: 60px 0 0 0; } //shift everything under the nav bar
+.page-details { margin: 2rem; h4, h2 { font-weight: lighter; } }
+
+//---------------- Legal ------------------//
+
+.legal { 
+	padding: .5rem; 
+	font-size: .7rem; 
+	text-align: center; 
+}
+
+//--------------- ADD ITEM ----------------//
+
+.add-item-container {
+	@media (max-width: $small-screen) { margin: 0; }
+	@media (min-width: $small-screen) { margin: .5em .5em; }
+
+	.enable {
+		z-index: 10;
+		@include pos(fixed, $right: 0, $top: 0);
+		@include size(60px, 50px); 
+		margin: 0 -5px;
+		opacity: 0; cursor: pointer;
+		&:checked ~ .form-container { 
+			transform: translate(-50%, 0%); 
+			box-shadow: 0 30px 30px rgba(0, 0, 0, 0.9);
+		}
+		&:checked ~ .active-list {
+			transform: translate(0%, 0%); 
+		}
+	}
+
+	.active-list {
+		z-index: 3;
+		@include pos(fixed, $top: 50px);
+		transform: translate(0%, -50px); 
+		transition: 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+		margin: 0;
+		padding: 4px;
+		width: 100%;
+		font-size: .7rem;
+		text-align: center;
+		background: #d3d3d3;
+		box-shadow: 0 10px 10px rgba(0, 0, 0, .4);
+	}
+
+	.form-container {
+		z-index: 2;
+		@include pos(fixed, $left: 50%, $top: 70px);
+		@include size(100vw, 92%);
+		transform: translate(-50%, -110%); //idk why this works
+		transition: 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+		margin: 0;
+		padding: 10px;
+		align-content: center;
+		overflow: scroll;
+		background: #d3d3d3;
+		border-radius: 0px 0px 14px 14px; 
+		box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+		
+
+		.header {
+			margin: 10px 22px;
+			font-size: 1.5rem;
+			color: #797979;
+		}
+
+		.field {
+			margin: 10px 22px;
+			font-size: .8rem;
+
+			//thumbnail
+			.thumb {
+				@media (max-width: $small-screen) { @include size(100%, $thumb-height); }
+				@media (min-width: $small-screen) { @include size(100%, $thumb-height); }
+				object-fit: cover; 
+			}
+
+			input[type=text], .submit {
+				width: 100%;
+				font-family: 'Montserrat', sans-serif;
+				border: 0px;
+				border-radius: 6px;
+			}
+	
+			input[type=text] {
+				margin: 4px 0;
+			}
+	
+			.submit {
+				//dunno what's going on at the bottom of the screen
+				margin-top: 15px;
+				margin-bottom: 40px; 
+				width: 100%;
+				font-size: 1.4rem;
+				background-color: #57a7e8;
+				color: white;
+			}
+
+		}
+	}
+}
+
+.rating-selector {
+	display: flex; flex-wrap: nowrap; // justify-content: space-around;
+	margin: 10px 0;
+
+	.selected   { border: 3px #4390E1 solid; }
+	.unselected { border: 3px #7e7e7e77 solid; }
+	.selected, .unselected {
+		flex-grow: 1;
+		margin: 0 3px;
+		vertical-align: middle;
+		text-align: center;
+		cursor: pointer;
+		border-radius: 5px;
+		font-size: .7rem;
+	}
+}
+
+//-------------- RANKS ---------------//
+
+.ranks-container {
+	display: flex; flex-wrap: wrap; // justify-content: space-around;
+
+	//this keeps space between cards to preserve their size
+	.card-container {
+		@media (max-width: $small-screen) { margin: 0; }
+		@media (min-width: $small-screen) { margin: .5em .5em; }
+		flex-grow: 1;
+
+		.card {
+			@media (max-width: $small-screen) { @include pos(relative, $card-width-small / 2, $card-height / 2); @include size($card-width-small, $card-height); }
+			@media (min-width: $small-screen) { @include pos(relative, $card-width-medium / 2, $card-height / 2); @include size($card-width-medium, $card-height); }
+			margin: .3em auto;
+			align-content: center;
+			overflow: hidden;
+			cursor: pointer;
+			background: $white;
+			border-radius: $border-radius; box-shadow: $box-shadow;
+			transform: translate(-50%, -50%) translateZ(0);
+
+			.thumb {
+				@media (max-width: $small-screen) { @include size(100%, $thumb-height); }
+				@media (min-width: $small-screen) { @include size(100%, $thumb-height); }
+				object-fit: cover; 
+				filter: blur(0px);
+				opacity: 1;
+				transition: $timing-2 $transition;
+			}
+
+			.data-container {
+				margin: 0;
+				transition: $timing-1 $transition;
+
+				input {
+					z-index: 9;
+					@include pos(absolute, $top: 256px);
+					@include size(136px, 36px); 
+					left: 50%; transform: translate(-50%, 0); //idk why this works
+					opacity: 0;
+					cursor: pointer; 
+
+					//any "&:operation .class-name { attribute: newValue; }" has to go last, 
+					//but the html element has to be first
+					//https://www.w3schools.com/cssref/css_selectors.asp
+					&:checked ~ .details .bonuses { opacity: 0; }
+					&:checked ~ .details .ranks { 
+						@media (max-width: $small-screen) { transform: translate(-46%, 0%); }
+						@media (min-width: $small-screen) { transform: translate(-46%, 0%); }
+						opacity: 1; filter: blur(0px);
+					}
+					&:checked ~ .details .link img { transform: translateY(-5%) scale(-1); }
+				}
+
+				.header {
+					display: flex; justify-content: space-between; align-items: flex-start;
+					margin: 5px 10px;
+
+					.title {
+						font-size: 1rem;
+						font-weight: bold;
+						color: $big-stone;
+						letter-spacing: .05rem;
+						white-space: nowrap; // ensure no wrapping
+						overflow: hidden; // if for some reason it escapes the visible area don't display anyth...
+						text-overflow: ellipsis;
+						
+						.stamp {
+							.top10stamp { background: url('/assets/top10.png') no-repeat; }
+							.top20stamp { background: url('/assets/image1.png') no-repeat; }
+
+							.top10stamp, .top20stamp {
+								@include size(50px, 20px);
+								margin-top: .3rem;
+								background-size: 100%;
+							}
+						}
+					}
+
+					.score {
+						margin: -0.7rem 0;
+						font-size: 3.3rem;
+						font-weight: bold;
+						color: $lite-big-stone;
+					}
+				}
+
+				.details {
+					@include pos(relative);
+
+					.bonuses {
+						margin: 6px 10px;
+						z-index: 4;
+						font-size: .95rem;
+						color: $lite-big-stone;
+						opacity: 1;
+						transition: $timing-2 $transition;
+					}
+
+					.ranks {
+						z-index: 2;
+						@include pos(absolute, $left: 50%, $top: -5px); 
+						@media (max-width: $small-screen) { transform: translate(-46%, 65%); }
+						@media (min-width: $small-screen) { transform: translate(-46%, 65%); }
+						margin: 0;
+						
+						opacity: .2; filter: blur(2px);
+						transform-origin: 0% 0%; 
+						transition: 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+
+						@import 'https://code.highcharts.com/css/highcharts.css';
+						.highcharts-point { stroke-width: 0px; fill: #1111117d; }
+					}
+					
+					.gradient-fader-bottom {
+						@include pos(absolute, $top: 20px);
+						@include size(100%, 250px);
+						z-index: 1; 
+						background-image: linear-gradient(to top, white 20%, #ffffff00 100%, #ffffffaa 95%);
+					}
+
+					.link {
+						@include pos(absolute, $top: 205px);
+						left: 50%; transform: translate(-50%, 0); //idk why this works
+						z-index: 3;
+						padding: .5rem;
+						text-align: center;
+						font-size: .9rem;
+						color: #5a93b9;
+	
+						border-radius: 5px;
+						background-color: #eeeeee;
+						box-sizing: border-box;
+						box-shadow: 0 2px 2px rgba(0,90,250,0.05), 0 4px 4px rgba(0,90,250,0.05), 0 8px 8px rgba(0,90,250,0.05), 0 16px 16px rgba(0,90,250,0.05);
+
+						.arrow {
+							@include size(25px, 25px); 
+							margin-left: .5em;
+							vertical-align: middle;
+
+							transform: translateY(-5%) scale(1);
+							transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+							opacity: 0.15;
+						}
+					}
+				}
+			}
+
+			&:hover //DISABLE THIS IF TESTING THE INFO DIV	
+			.thumb { filter: blur(8px); opacity: 0.4; }
+
+			&:hover //DISABLE THIS IF TESTING THE INFO DIV	
+			.data-container { @media (max-width: $small-screen) { transform:translateY(-$thumb-height); } @media (min-width: $small-screen) { transform:translateY(-$thumb-height); } }
+		}
+	}
+}
+
+//------------- NAV BAR --------------//
+
+.navi {
+	@include pos(fixed, $left: 0, $top: 0);
+	z-index: 9;
+	margin: 0;
+	@include size(100%, 50px);
+	background-color: #1E1E23;
+	
+	.bar-text {
+		vertical-align: middle;
+		color: #dddddd;
+
+		.list-state {
+			@include pos(absolute, $left: 50%, $top: 5px);
+			transform: translate(-50%, 0);
+
+			.title { font-size: 1.1rem; }
+			.sort {
+				margin: 5px 0;
+				width: 100%;
+				font-size: .7rem;
+
+				select {
+					appearance: none; -webkit-appearance: none; -moz-appearance: none;
+					background-image: none; background-color: transparent; border: 0px;
+					margin: 0 auto; display: block;
+					text-align: center; text-align-last: center; -moz-text-align-last: center;
+					font-size: .7rem;
+					color: #cfc7c7; cursor: pointer;
+
+					option {
+						background-image: none; background-color: #464646;
+						padding: 1px;
+						font-size: .9rem;
+						color: white; cursor: pointer;
+					}
+				}
+			}
+
+			.sort-options-container {
+				@media (max-width: $small-screen) { margin: 0; }
+				@media (min-width: $small-screen) { margin: .5em .5em; }
+				
+				.enable {
+					z-index: 10;
+					@include pos(fixed, $right: 0, $top: 0);
+					@include size(60px, 50px); 
+					margin: 0 -5px;
+					opacity: 0; cursor: pointer;
+					&:checked ~ .form-container { 
+						transform: translate(-50%, 0%); 
+						box-shadow: 0 15px 15px rgba(0, 0, 0, 0.5);
+					}
+				}
+
+				.form-container {
+					z-index: 2;
+					@include pos(fixed, $left: 50%, $top: 50px);
+					@include size(100vw, 500px);
+					transform: translate(-50%, -110%); //idk why this works
+					transition: 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+					margin: 0;
+					align-content: center;
+					overflow: scroll;
+					background: #d3d3d3;
+					border-radius: 0px 0px 14px 14px; 
+					box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+
+					.field {
+						margin: 10px 22px;
+						font-size: .8rem;
+
+						input[type=text], .submit {
+							width: 100%;
+							font-family: 'Montserrat', sans-serif;
+							border: 0px;
+							border-radius: 6px;
+						}
+				
+						input[type=text] {
+							margin: 4px 0;
+						}
+				
+						.submit {
+							width: 100%;
+							margin: 15px 0;
+							font-size: 1.4rem;
+							background-color: #57a7e8;
+							color: white;
+						}
+					}
+				}
+			}
+		}
+	
+		.plus {
+			@include pos(absolute, $right: 0px, $top: 0px);
+			padding-right: 15px;
+			font-size: 2.6rem;
+			font-weight: 600;
+			float: right;
+		}
+	}
+
+	.menuToggle {
+		@include pos(absolute, $left: 0, $top: 0);
+		display: flex; flex-direction: column;
+		height: 50px;
+		user-select: none; -webkit-user-select: none;
+		
+		span, input { display: flex; }
+
+		span { //hamburger
+			@include pos(relative, $left: 15px, $top: 15px);
+			@include size(29px, 2px);
+			z-index: 1;
+			margin-bottom: 5px;
+			background: #73788a;
+			border-radius: 3px;
+			transform-origin: 5px 0px;
+			transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+						background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+						opacity 0.55s ease;
+		}
+
+		input { //placed over the hamburger, to turn it into button
+			@include pos(absolute, $left: 0, $top: 0);
+			@include size(60px, 50px);
+			z-index: 2; 
+			margin: 0;
+			opacity: 0; cursor: pointer; 
+		}
+
+		ul { //page links
+			@include pos(absolute, $left: 0px, $top: 0px);
+			@include size(180px, 100vh);
+			margin: 0;
+			padding: 48px 21px;
+	
+			list-style-type: none; 
+			box-shadow: 0 0 10px #85888C; background-color: #F5F6FA; -webkit-font-smoothing: antialiased;
+			transform-origin: 0% 0%; transform: translate(-110%, 0); transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+	
+			li { margin: 1.5rem 0; }
+			a { text-decoration: none; font-size: 1.5em; color: #1E1E23; }
+		}
+
+		input:checked ~ ul { transform: none; }
+		input:checked ~ span:nth-last-child(3) { transform: rotate(0deg) scale(0.2, 0.2); opacity: 0; }
+		input:checked ~ span:nth-last-child(2) { transform: rotate(-45deg) translate(0, -1px); }
+		input:checked ~ span { transform: rotate(45deg) translate(-3px, -1px); opacity: 1; }
+		span:first-child { transform-origin: 0% 0%; }
+		span:nth-last-child(2) { transform-origin: 0% 100%; }
+	}
+}	
+
+//---- NO-TAP: Prevents accidentally text highlighting ----//
+
+.no-tap {
+	@media (max-width: $small-screen) {
+		-webkit-touch-callout: none;
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+	}
+}
+
+.select-allowed {
+	@media (max-width: $small-screen) {
+		-webkit-touch-callout: unset;
+		-webkit-user-select: unset;
+		-khtml-user-select: unset;
+		-moz-user-select: unset;
+		-ms-user-select: unset;
+		user-select: unset;
+	}
+}
+
+//------ FLEX BOX TO TEST MARGIN/PADDING ------//
+
+// @extend .test-flex; //to test margins
+
+.test-flex {
+	border-radius: 3px;
+	background-color: #A2CBFA;
+	border: 1px solid #4390E1;
+	box-sizing: border-box;
+	box-shadow: 0 2px 2px rgba(0,90,250,0.05), 
+	0 4px 4px rgba(0,90,250,0.05), 0 8px 8px rgba(0,90,250,0.05), 0 16px 16px rgba(0,90,250,0.05);
+}

@@ -1,0 +1,25 @@
+<div class="card">
+    <!-- <img class="thumb" src="{{shadow}}" no-repeat center> -->
+    <img class="thumb" src="{{categoryItem.thumb}}" no-repeat center>
+    
+    <div class="data-container">
+        <input type="checkbox"/>
+        <div class="header">
+            <span class="title">
+                {{categoryItem.title}}
+                <div class="stamp" *ngIf="(dumbCard | normalizeScore) > 90">
+                    <div class="top10stamp"></div>
+                </div>
+            </span>
+            <span class="score">{{dumbCard | normalizeScore}}</span>
+        </div>
+        <div class="details">
+            <div class="bonuses" *ngFor="let bonus of dumbCard.bonusDetails">{{bonus.comment}}</div>
+            <div class="ranks">
+                <highcharts-chart [Highcharts]="Highcharts" [options]="chartOptions" [(update)]="chartUpdateFlag"></highcharts-chart>
+            </div>
+            <div class="link">Show Chart <img class="arrow" src="/assets/up-arrow.png"></div>
+            <div class="gradient-fader-bottom"></div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+<div class="home-container" *ngIf="sessionHasLoaded">
+    <div class="add-item-container">
+        <add-rank-card (onAddItem)="ngOnInit()"></add-rank-card>
+    </div>
+    <div class="page-details">
+        <h1>Latest Rankings</h1>
+    </div>
+    <div class="ranks-container">
+        <div class="card-container" *ngFor="let rankCard of activeRankCardList.rankCards | listSort: this.activeSort">
+            <user-rating-card [cardInput]="rankCard"></user-rating-card>
+        </div>
+    </div>
+</div>

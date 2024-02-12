@@ -1,0 +1,45 @@
+<input class="enable" type="checkbox" [checked]="show" (change)="show = !show"/>
+
+<div class="active-list">Adding to list: "{{activeListTitle}}"</div>
+<div class="form-container">
+    <div class="header">Find a Game</div>
+    <div class="field">
+        <div>Title</div>
+        <input type="text" [(ngModel)]="newCategoryItem.title">
+    </div>
+    <div class="field">
+        <div>Box Art URL (jpg, png, whatevs)</div>
+        <input class="select-allowed" type="text" [(ngModel)]="newCategoryItem.thumb" alt="Image will appear here if URL works">
+        <input type="button" (click)="clearBoxArt()" value="Clear"/>
+        <img class="thumb" src="{{newCategoryItem.thumb}}" no-repeat center>
+    </div>
+
+    <!-- Add these in when the mock data is added in ngOnInit (still busy with other stuff) -->
+    <!-- <div class="field">
+        <div>Hours Played (total for all playthroughs)</div>
+        <input type="text" [(ngModel)]="item.hrsPlayed">
+    </div>
+    <div class="field">
+        <div>Completion Notes (did you quit early?)</div>
+        <input type="text" [(ngModel)]="item.completionNotes">
+    </div> -->
+
+    <div class="header">Rate the Game</div>
+
+    <!-- TODO: FIX ISSUES WHERE THIS KEEPS ADDING FIELDS!!!!!!!!!!!!!!!!!!!!!!!!! -->
+    <div class="field" *ngFor="let rank of newRankCardToPush.ranks">
+        <div>{{getRuleName(rank.code)}}</div>
+        <rating-input (onSelectedRating)="selectRankScore(rank.code, $event)"></rating-input>
+    </div>
+    
+    <!-- Yes, this is a static number of bonuses -->
+    <div class="field">
+        <div>Bonuses and Reductions</div>
+        <input type="text" *ngFor="let bonus of newRankCardToPush.bonusDetails" [(ngModel)]="bonus.comment">
+    </div>
+
+    <div class="field">
+        <input class="submit" type="button" (click)="submit()" value="Add To List!"/>
+    </div>
+    
+</div>
