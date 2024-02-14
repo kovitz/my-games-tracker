@@ -24,7 +24,7 @@
     "express": "^4.17.1",
     "google-search-results-nodejs": "^2.0.0",
     "highcharts": "^8.2.2",
-    "highcharts-angular": "^2.8.0",
+    "highcharts-angular": "^4.0.0",
     "https": "^1.0.0",
     "mongodb": "^3.6.2",
     "rxjs": "~6.6.0",
