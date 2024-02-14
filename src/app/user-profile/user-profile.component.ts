@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({ selector: 'user-profile', templateUrl: './user-profile.component.html' })
 export class UserProfileComponent {
-  pageTitle = 'Innovation Ranks';
+  pageTitle = 'My Game Ranks';
   sortOptions = [];
   activeSortKey = 'Title';
 

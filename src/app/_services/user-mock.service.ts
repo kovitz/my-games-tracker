@@ -36,7 +36,7 @@ export class UserMockService implements IUserService {
     "rankCardLists": [
       {
         "listId": "~niksgames",
-        "title": "Niks Top-Tier Games",
+        "title": "Top-Tier Games",
         "categoryId": "#videogames",
         "rules": [
           { "code": "A", "ruleName": "Art Style", "weight": 10 },

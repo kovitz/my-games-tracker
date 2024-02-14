@@ -16,7 +16,7 @@ export class CategoryMockService implements ICategoryService {
     "items": [
       {
         "itemId": 0,
-        "title": "Shadows of the Colossus",
+        "title": "Shadow of the Colossus",
         "thumb": "https://assets1.ignimgs.com/2017/11/01/shadow-of-the-colossus-button-01-1509569281609.jpg",
         "metadata": {
           "releaseDate": "DATEHERE",

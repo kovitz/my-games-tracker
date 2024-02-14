@@ -1,8 +1,13 @@
 <input class="enable" type="checkbox" [checked]="show" (change)="show = !show"/>
 
 <div class="active-list">Adding to list: "{{activeListTitle}}"</div>
+
 <div class="form-container">
-    <div class="header">Find a Game</div>
+	<div class="header">*** Work In Progress ***</div>
+	<div class="header">This is where users would add a new game rating card.</div>
+	<div class="header">This code is out-of-date, removing this UI until further notice.</div>
+	<!-- Removing this block for publishing -->
+    <!-- <div class="header">Find a Game</div>
     <div class="field">
         <div>Title</div>
         <input type="text" [(ngModel)]="newCategoryItem.title">
@@ -12,7 +17,7 @@
         <input class="select-allowed" type="text" [(ngModel)]="newCategoryItem.thumb" alt="Image will appear here if URL works">
         <input type="button" (click)="clearBoxArt()" value="Clear"/>
         <img class="thumb" src="{{newCategoryItem.thumb}}" no-repeat center>
-    </div>
+    </div> -->
 
     <!-- Add these in when the mock data is added in ngOnInit (still busy with other stuff) -->
     <!-- <div class="field">
@@ -24,15 +29,17 @@
         <input type="text" [(ngModel)]="item.completionNotes">
     </div> -->
 
-    <div class="header">Rate the Game</div>
+	<!-- Removing this block for publishing -->
+    <!-- <div class="header">Rate the Game</div> -->
 
     <!-- TODO: FIX ISSUES WHERE THIS KEEPS ADDING FIELDS!!!!!!!!!!!!!!!!!!!!!!!!! -->
-    <div class="field" *ngFor="let rank of newRankCardToPush.ranks">
+	
+	<!-- Removing this block for publishing -->
+    <!-- <div class="field" *ngFor="let rank of newRankCardToPush.ranks">
         <div>{{getRuleName(rank.code)}}</div>
         <rating-input (onSelectedRating)="selectRankScore(rank.code, $event)"></rating-input>
     </div>
-    
-    <!-- Yes, this is a static number of bonuses -->
+
     <div class="field">
         <div>Bonuses and Reductions</div>
         <input type="text" *ngFor="let bonus of newRankCardToPush.bonusDetails" [(ngModel)]="bonus.comment">
@@ -40,6 +47,6 @@
 
     <div class="field">
         <input class="submit" type="button" (click)="submit()" value="Add To List!"/>
-    </div>
+    </div> -->
     
 </div>
