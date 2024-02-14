@@ -16,8 +16,8 @@ export class CategoryMockService implements ICategoryService {
     "items": [
       {
         "itemId": 0,
-        "title": "FinHealthSDK",
-        "thumb": "https://loremflickr.com/g/320/240/computer",
+        "title": "Shadow of the Colossus",
+        "thumb": "https://assets1.ignimgs.com/2017/11/01/shadow-of-the-colossus-button-01-1509569281609.jpg",
         "metadata": {
           "releaseDate": "DATEHERE",
           "platforms": ["PS2", "PS4"]
@@ -25,8 +25,8 @@ export class CategoryMockService implements ICategoryService {
       }, 
       {
         "itemId": 1,
-        "title": "Interactive Gas Station TV",
-        "thumb": "https://loremflickr.com/g/320/240/laptop",
+        "title": "Child of Light",
+        "thumb": "/assets/childoflight.png",
         "metadata": {
           "releaseDate": "DATEHERE",
           "platforms": ["PC", "PS4", "Switch"]
@@ -34,38 +34,38 @@ export class CategoryMockService implements ICategoryService {
       }, 
       {
         "itemId": 2,
-        "title": "Hands-free Premium Account Services",
-        "thumb": "https://loremflickr.com/g/320/240/smartphone",
+        "title": "Golf Story",
+        "thumb": "/assets/golfstory.jpg",
         "metadata": {}
       }, 
       {
         "itemId": 3,
-        "title": "Calm Tech Integrated Into Main Website",
-        "thumb": "https://loremflickr.com/g/320/240/finance",
+        "title": "Horizon Zero Dawn",
+        "thumb": "/assets/hzd.jpg",
         "metadata": {}
       }, 
       {
         "itemId": 4,
-        "title": "AR Supplemental Info Layer",
-        "thumb": "https://loremflickr.com/g/320/240/tech",
+        "title": "STAR WARS Jedi: Fallen Order",
+        "thumb": "/assets/jedif.jpg",
         "metadata": {}
       }, 
       {
         "itemId": 5,
-        "title": "Metaverse Sensory Immersion",
-        "thumb": "https://loremflickr.com/g/320/240/metaverse",
+        "title": "Outer Wilds",
+        "thumb": "/assets/outerwilds.jpg",
         "metadata": {}
       }, 
       {
         "itemId": 6,
-        "title": "Smartphone Badges",
-        "thumb": "https://loremflickr.com/g/320/240/badge",
+        "title": "Xenoblade Chronicles",
+        "thumb": "/assets/xenoblade1.png",
         "metadata": {}
       }, 
       {
         "itemId": 7,
-        "title": "Personalized News Feed",
-        "thumb": "https://loremflickr.com/g/320/240/newsfeed",
+        "title": "Final Fantasy 7 Remake",
+        "thumb": "/assets/ff7r.jpg",
         "metadata": {}
       }
     ]
