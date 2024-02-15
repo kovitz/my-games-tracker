@@ -5,10 +5,17 @@ Created by Nik Kovitz.
 This code should be used as reference only, please navigate to this website to see the work in progress:
 
 https://main--my-games-tracker.netlify.app/
+# My Games Tracker
+
+Created by Nik Kovitz.
+
+This code should be used as reference only, please navigate to this website to see the work in progress:
+
+https://main--my-games-tracker.netlify.app/
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.7.
 
-## Development server
+# Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`.
 
